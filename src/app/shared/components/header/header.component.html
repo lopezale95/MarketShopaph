@@ -4,6 +4,11 @@
     <ion-buttons slot="start">
       <ion-buttons slot="start">
         <ion-back-button *ngIf="backButton" [defaultHref]="backButton"></ion-back-button>
+      
+      <ion-button *ngIs="isModal">
+        <ion-icon  name="close-circle-outline"></ion-icon>
+      </ion-button>
+      
       </ion-buttons>
     </ion-buttons>
 
