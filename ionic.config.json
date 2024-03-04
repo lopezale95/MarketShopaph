@@ -1,0 +1,7 @@
+{
+  "name": "MarketShopaph",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
