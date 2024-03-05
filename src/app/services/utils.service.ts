@@ -5,12 +5,15 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  AlertController,
+  AlertOptions,
   LoadingController,
   ModalController,
   ModalOptions,
   ToastController,
   ToastOptions,
 } from '@ionic/angular';
+import { Camera, CameraResultType,CameraSource } from '@capacitor/camera';
 
 @Injectable({
   providedIn: 'root',
@@ -20,13 +23,35 @@ export class UtilsService {
   toastCtrl = inject(ToastController);
   modalCtrl = inject(ModalController);
   router = inject(Router);
+  alertCtrl = inject(AlertController);
 
-  //=============loading==============
+  
+
+ async takePicture(promptLabelHeader: string) {
+  return await Camera.getPhoto({
+    quality: 90,
+    allowEditing: true,
+    resultType: CameraResultType.DataUrl,
+    source:CameraSource.Prompt,
+    promptLabelHeader,
+    promptLabelPhoto:'Selecciona una imagen',
+    promptLabelPicture: 'Toma una foto'
+  });
+
+};
+   //=============Alert==============
+  async presentAlert(opts?: AlertOptions) {
+    const alert = await this.alertCtrl.create(opts);
+  
+    await alert.present();
+  }  
+
+  //=============Loading==============
   loading() {
     return this.loadingCtrl.create({ spinner: 'crescent' });
   }
 
-  //===========toast===========
+  //===========Toast===========
 
   async presentToast(opts?: ToastOptions) {
     const toast = await this.toastCtrl.create(opts);
