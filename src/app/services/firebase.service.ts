@@ -18,14 +18,18 @@ import {
   collectionData,
   query,
   updateDoc,
-  deleteDoc
+  deleteDoc,
 } from '@angular/fire/firestore';
 import { getAuth } from 'firebase/auth';
 import { UtilsService } from './utils.service';
-import {AngularFireStorage} from '@angular/fire/compat/storage';
-import {getStorage,uploadString,ref,getDownloadURL,deleteObject} from 'firebase/storage';
-
-
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import {
+  getStorage,
+  uploadString,
+  ref,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +37,7 @@ import {getStorage,uploadString,ref,getDownloadURL,deleteObject} from 'firebase/
 export class FirebaseService {
   auth = inject(AngularFireAuth);
   firestore = inject(AngularFirestore);
-  storage = inject (AngularFireStorage);
+  storage = inject(AngularFireStorage);
   UtilsSvc = inject(UtilsService);
 
   //==============Autenticación================
@@ -67,12 +71,12 @@ export class FirebaseService {
     this.UtilsSvc.routerLink('/auth');
   }
   //============Base de Datos=============
-  
+
   //=====Obtener documentos de una colección=====
 
-  getCollectionData(path: string, collectionQuery?: any){
-    const ref= collection(getFirestore(), path);
-    return collectionData(query(ref, collectionQuery),{idField:'id'});
+  getCollectionData(path: string, collectionQuery?: any) {
+    const ref = collection(getFirestore(), path);
+    return collectionData(query(ref, collectionQuery), { idField: 'id' });
   }
 
   //============Setear un documento=============
@@ -87,9 +91,9 @@ export class FirebaseService {
     return updateDoc(doc(getFirestore(), path), data);
   }
 
-   //============Eliminar un documento=============
+  //============Eliminar un documento=============
 
-   deleteDocument(path: string) {
+  deleteDocument(path: string) {
     return deleteDoc(doc(getFirestore(), path));
   }
 
@@ -103,26 +107,26 @@ export class FirebaseService {
     return addDoc(collection(getFirestore(), path), data);
   }
 
-
   //=========Almacenamiento=========
 
   //======Subir Imagen=====
-  async uploadImage(path:string,data_url:string){
-    return uploadString(ref(getStorage(),path),data_url,'data_url').then(()=>{
-      return getDownloadURL(ref(getStorage(),path))
-    })
+  async uploadImage(path: string, data_url: string) {
+    return uploadString(ref(getStorage(), path), data_url, 'data_url').then(
+      () => {
+        return getDownloadURL(ref(getStorage(), path));
+      }
+    );
   }
 
   //======Obtener ruta de la imagen con su url=====
 
-  async getFilePath(url:string){
-    return ref(getStorage(),url).fullPath
+  async getFilePath(url: string) {
+    return ref(getStorage(), url).fullPath;
   }
 
   //======Eliminar archivo=====
 
-  deleteFile(path: string){
-    return deleteObject(ref(getStorage(),path));
+  deleteFile(path: string) {
+    return deleteObject(ref(getStorage(), path));
   }
-
 }

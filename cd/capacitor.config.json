@@ -1,0 +1,11 @@
+{
+  "appId": "marketshopaph.app",
+  "appName": "MarketShopaph",
+  "bundledWebRuntime": false,
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}
